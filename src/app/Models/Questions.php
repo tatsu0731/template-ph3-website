@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class questions extends Model
+class Questions extends Model
 {
     use HasFactory;
 
@@ -16,10 +16,10 @@ class questions extends Model
     ];
 
     public function quizzes() {
-        return $this->belongsTo(quizzes::class);
+        return $this->belongsTo(Quizzes::class);
     }
 
     public function choices() {
-        return $this->hasMany(choices::class);
+        return $this->hasMany(Choices::class);
     }
 }

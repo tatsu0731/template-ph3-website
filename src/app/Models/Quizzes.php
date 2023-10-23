@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
-class quizzes extends Model
+class Quizzes extends Model
 {
     use HasFactory;
 
@@ -20,6 +20,6 @@ class quizzes extends Model
     // }
 
     public function questions() {
-        return $this->hasMany(questions::class);
+        return $this->hasMany(Questions::class);
     }
 }

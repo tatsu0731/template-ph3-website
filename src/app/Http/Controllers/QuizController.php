@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\choices;
 use App\Models\questions;
-use App\Models\quizzes;
+use App\Models\Quizzes;
 use Illuminate\Http\Request;
 
 class QuizController extends Controller
@@ -12,21 +12,21 @@ class QuizController extends Controller
     // 一覧表示のためのメソッド
     public function quiz() {
         // $quizzes = quizzes::all();
-        $quizzes = quizzes::paginate(20);
+        $quizzes = Quizzes::paginate(20);
         // $questions = questions::all();
         // $choices = choices::all();
         return view('quiz', compact('quizzes'));
     }
 
     // タイトル編集用のメソッド
-    public function quizzes_title(quizzes $quizzes) {
+    public function quizzes_title(Quizzes $quizzes) {
         // $quizzes = quizzes::all();
-        $quizzes = quizzes::all()->find($quizzes);
+        $quizzes = Quizzes::all()->find($quizzes);
         // $questions = questions::all();
         // $choices = choices::all();
         return view('quizzesTitle', compact('quizzes'));
     }
-    public function quizzes_title_update(Request $request, quizzes $quizzes) {
+    public function quizzes_title_update(Request $request, Quizzes $quizzes) {
         $request->validate([
             'name' => 'required|max:40',
         ]);
@@ -43,7 +43,7 @@ class QuizController extends Controller
     // }
     // 個別表示のためのメソッド旧_2
     public function show ($quizzes) {
-        $quizzes = quizzes::with('questions.choices')->find($quizzes);
+        $quizzes = Quizzes::with('questions.choices')->find($quizzes);
 
         if(!$quizzes) {
             abort(404);
@@ -58,7 +58,7 @@ class QuizController extends Controller
     // }
     // 編集用のメソッド
     public function edit($quizzes) {
-        $quizzes = quizzes::with('questions.choices')->find($quizzes);
+        $quizzes = Quizzes::with('questions.choices')->find($quizzes);
 
         if(!$quizzes) {
             abort(404);
@@ -68,7 +68,7 @@ class QuizController extends Controller
     }
     // 更新用のメソッド
     public function update(Request $request, $quizzes) {
-        $quizzes = quizzes::with('questions.choices')->find($quizzes);
+        $quizzes = Quizzes::with('questions.choices')->find($quizzes);
         if(!$quizzes) {
             abort(404);
         }
@@ -101,17 +101,17 @@ class QuizController extends Controller
     // 保存用のメソッド
     public function store(Request $request) {
 
-        $quizzes = quizzes::create([
+        $quizzes = Quizzes::create([
             'name' => $request->name
         ]);
 
-        $questions = questions::create([
+        $questions = Questions::create([
             // 'image' => $request->image,
             'text' => $request->text,
             // 'supplement' => $request->supplement
         ]);
 
-        $choices = choices::create([
+        $choices = Choices::create([
             'text' => $request->text,
             // 'is_correct' => $request->is_correct
         ]);
@@ -119,7 +119,7 @@ class QuizController extends Controller
         return back();
     }
 
-    public function delete( Request $request, quizzes $quizzes) {
+    public function delete( Request $request, Quizzes $quizzes) {
         $quizzes->delete();
         $request->session()->flash('message', '削除しました');
         return redirect('quiz');

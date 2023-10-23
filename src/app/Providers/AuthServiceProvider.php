@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\Models\quizzes;
+use App\Models\Quizzes;
 use App\Models\User;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;

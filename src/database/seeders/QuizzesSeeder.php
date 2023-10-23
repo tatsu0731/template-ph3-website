@@ -12,7 +12,7 @@ class QuizzesSeeder extends Seeder
      */
     public function run(): void
     {
-        \App\Models\quizzes::create([
+        \App\Models\Quizzes::create([
             'name' => 'ポケモンクイズ',
         ]);
     }
